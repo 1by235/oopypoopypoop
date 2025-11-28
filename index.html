@@ -2,27 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>💩 Poopy Q Virus Apocalypse Game 💩</title>
+  <title>💩 Overpowered Poopy Q Virus Arcade 💩</title>
   <style>
     body {
       margin: 0;
-      background: black;
-      color: hotpink;
       font-family: "Comic Sans MS", cursive, sans-serif;
       overflow: hidden;
+      text-align: center;
+      animation: flash 1s infinite;
+    }
+    @keyframes flash {
+      0% { background-color: hotpink; }
+      25% { background-color: yellow; }
+      50% { background-color: lime; }
+      75% { background-color: cyan; }
+      100% { background-color: purple; }
     }
     #gameCanvas {
-      background: linear-gradient(to bottom, #222, #444);
+      background: #222;
       display: block;
       margin: auto;
       border: 10px dashed brown;
     }
-    #gameOver {
+    #gameOver, #nextLevel {
       position: absolute;
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3em;
+      font-size: 2.5em;
       color: red;
       text-shadow: 3px 3px 10px yellow;
       display: none;
@@ -31,133 +38,129 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      font-size: 1.5em;
-      color: yellow;
+      color: black;
+      background: yellow;
+      padding: 5px;
+      border: 3px solid red;
+      font-size: 1.4em;
     }
+    .side-img {
+      position: absolute;
+      width: 150px;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+    .visible { opacity: 1; }
+    #leftImg { left: 10px; top: 100px; }
+    #rightImg { right: 10px; top: 200px; }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">💩💩💩 POOPY Q VIRUS APOCALYPSE 💩💩💩</h1>
+  <h1>💩💩💩 OVERPOWERED POOPY Q VIRUS ARCADE 💩💩💩</h1>
   <canvas id="gameCanvas" width="600" height="400"></canvas>
   <div id="gameOver">💩 GAME OVER 💩<br>Poopy Q Virus got you!</div>
-  <div id="score">Score: 0</div>
+  <div id="nextLevel">🎉 NEXT LEVEL 🎉<br>Even more cringe awaits!</div>
+  <div id="score">Score: 0 | Level: 1</div>
+
+  <!-- Side cringe images -->
+  <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" id="leftImg" class="side-img" />
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" id="rightImg" class="side-img" />
 
   <script>
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
 
-    let player = { x: 280, y: 350, size: 40, speed: 6 };
+    let player = { x:280, y:350, size:40, speed:5 };
     let poops = [];
     let powerUps = [];
-    let gameOver = false;
-    let score = 0;
-    let invincible = false;
+    let gameOver=false, score=0, level=1, invincible=false;
 
-    // Spawn poop every second
-    setInterval(() => {
-      if (!gameOver) {
-        poops.push({ x: Math.random() * (canvas.width - 20), y: -20, size: 20, speed: 3 });
+    // Spawn poop
+    setInterval(()=>{ if(!gameOver) poops.push({x:Math.random()*560,y:-20,size:20,speed:2+level}); },1000);
+
+    // Spawn power-ups
+    setInterval(()=>{
+      if(!gameOver){
+        const type = Math.random()<0.5 ? "golden":"q";
+        powerUps.push({x:Math.random()*560,y:-20,type,size:20,speed:2});
       }
-    }, 1000);
+    },7000);
 
-    // Spawn power-ups every 7 seconds
-    setInterval(() => {
-      if (!gameOver) {
-        const type = Math.random() < 0.5 ? "golden" : "q";
-        powerUps.push({ x: Math.random() * (canvas.width - 20), y: -20, type, size: 20, speed: 2 });
-      }
-    }, 7000);
-
-    // Draw everything
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Player as cringe face
-      ctx.font = "30px Comic Sans MS";
-      ctx.fillStyle = invincible ? "gold" : "lime";
-      ctx.fillText("(>_<)", player.x, player.y);
-
-      // Poops
-      ctx.font = "25px Comic Sans MS";
-      poops.forEach(poop => {
-        ctx.fillText("💩", poop.x, poop.y);
-      });
-
-      // Power-ups
-      powerUps.forEach(p => {
-        ctx.font = "25px Comic Sans MS";
-        if (p.type === "golden") ctx.fillText("💩✨", p.x, p.y);
-        else ctx.fillText("Q", p.x, p.y);
+    function draw(){
+      ctx.clearRect(0,0,600,400);
+      ctx.font="30px Comic Sans MS"; ctx.fillStyle=invincible?"gold":"lime";
+      ctx.fillText("(>_<)",player.x,player.y);
+      ctx.font="25px Comic Sans MS";
+      poops.forEach(p=>ctx.fillText("💩",p.x,p.y));
+      powerUps.forEach(p=>{
+        if(p.type==="golden") ctx.fillText("💩✨",p.x,p.y);
+        else ctx.fillText("Q",p.x,p.y);
       });
     }
 
-    // Update positions
-    function update() {
-      poops.forEach(poop => {
-        poop.y += poop.speed;
-        if (!invincible && collide(poop, player)) endGame();
+    function update(){
+      poops.forEach(p=>{
+        p.y+=p.speed;
+        if(!invincible && collide(p,player)) endGame();
       });
-      poops = poops.filter(poop => poop.y < canvas.height + 20);
+      poops=poops.filter(p=>p.y<420);
 
-      powerUps.forEach(p => {
-        p.y += p.speed;
-        if (collide(p, player)) {
-          if (p.type === "golden") {
-            invincible = true;
-            setTimeout(() => invincible = false, 5000);
-          } else if (p.type === "q") {
-            score += 10;
-            alert("⚠️ Q is hiding around the corner! Bonus points!");
-          }
-          p.collected = true;
+      powerUps.forEach(p=>{
+        p.y+=p.speed;
+        if(collide(p,player)){
+          if(p.type==="golden"){ invincible=true; setTimeout(()=>invincible=false,5000); }
+          else if(p.type==="q"){ score+=10; }
+          p.collected=true;
         }
       });
-      powerUps = powerUps.filter(p => !p.collected && p.y < canvas.height + 20);
+      powerUps=powerUps.filter(p=>!p.collected && p.y<420);
 
-      document.getElementById("score").textContent = "Score: " + score;
-    }
-
-    function collide(a, b) {
-      return (
-        a.x < b.x + b.size &&
-        a.x + a.size > b.x &&
-        a.y < b.y + b.size &&
-        a.y + a.size > b.y
-      );
-    }
-
-    // Game loop
-    function loop() {
-      if (!gameOver) {
-        update();
-        draw();
-        requestAnimationFrame(loop);
+      // Win if reach top
+      if(player.y<=0){
+        level++; score+=50; player.y=350;
+        document.getElementById("nextLevel").style.display="block";
+        setTimeout(()=>document.getElementById("nextLevel").style.display="none",2000);
       }
+      document.getElementById("score").textContent="Score: "+score+" | Level: "+level;
+    }
+
+    function collide(a,b){
+      return a.x<b.x+b.size && a.x+a.size>b.x && a.y<b.y+b.size && a.y+a.size>b.y;
+    }
+
+    function loop(){
+      if(!gameOver){ update(); draw(); requestAnimationFrame(loop); }
     }
     loop();
 
-    // Controls (WASD + arrows)
-    document.addEventListener("keydown", e => {
-      if (gameOver) return;
-      if (e.key === "ArrowLeft" || e.key === "a") player.x -= player.speed;
-      if (e.key === "ArrowRight" || e.key === "d") player.x += player.speed;
-      if (e.key === "ArrowUp" || e.key === "w") player.y -= player.speed;
-      if (e.key === "ArrowDown" || e.key === "s") player.y += player.speed;
-
-      // Boundaries
-      if (player.x < 0) player.x = 0;
-      if (player.x > canvas.width - player.size) player.x = canvas.width - player.size;
-      if (player.y < 0) player.y = 0;
-      if (player.y > canvas.height - player.size) player.y = canvas.height - player.size;
-    });
-
-    function endGame() {
-      gameOver = true;
-      document.getElementById("gameOver").style.display = "block";
+    // Movement
+    let keys={};
+    document.addEventListener("keydown",e=>keys[e.key]=true);
+    document.addEventListener("keyup",e=>keys[e.key]=false);
+    function move(){
+      if(keys["ArrowLeft"]||keys["a"]) player.x-=player.speed;
+      if(keys["ArrowRight"]||keys["d"]) player.x+=player.speed;
+      if(keys["ArrowUp"]||keys["w"]) player.y-=player.speed;
+      if(keys["ArrowDown"]||keys["s"]) player.y+=player.speed;
+      if(player.x<0) player.x=0; if(player.x>560) player.x=560;
+      if(player.y<0) player.y=0; if(player.y>360) player.y=360;
+      requestAnimationFrame(move);
     }
+    move();
+
+    function endGame(){ gameOver=true; document.getElementById("gameOver").style.display="block"; }
+
+    // Side images flashing in/out
+    const leftImg=document.getElementById("leftImg");
+    const rightImg=document.getElementById("rightImg");
+    setInterval(()=>{
+      leftImg.classList.toggle("visible");
+      rightImg.classList.toggle("visible");
+    },5000);
   </script>
 </body>
 </html>
+
 
 
 
