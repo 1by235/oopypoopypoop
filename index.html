@@ -2,123 +2,216 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>💩💩💩 Poopocalypse Cringe 💩💩💩</title>
+  <title>💩 Overpowered Poopy Q Chaos 💩</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Global chaos */
     body {
       font-family: "Comic Sans MS", cursive, sans-serif;
       text-align: center;
       background: black;
-      color: neonpink;
+      color: hotpink;
       animation: flash 1s infinite;
+      overflow: hidden;
+      cursor: crosshair;
     }
     @keyframes flash {
       0% { background-color: black; color: hotpink; }
-      50% { background-color: yellow; color: lime; }
-      100% { background-color: black; color: cyan; }
+      25% { background-color: lime; color: yellow; }
+      50% { background-color: cyan; color: red; }
+      75% { background-color: purple; color: white; }
+      100% { background-color: black; color: orange; }
     }
-    img {
-      border: 15px groove brown;
-      animation: spin 2s infinite linear;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg) scale(1); }
-      to { transform: rotate(360deg) scale(1.5); }
-    }
-    h1 {
-      font-size: 3em;
-      text-shadow: 5px 5px 20px red;
-    }
-    marquee {
+
+    h1 { font-size: 3em; text-shadow: 6px 6px 24px red; margin: 0.5em 0; }
+    marquee { font-size: 1.6em; color: white; background: purple; }
+
+    /* Floating poop emojis */
+    .poop {
+      position: absolute;
       font-size: 2em;
-      color: white;
-      background: purple;
+      animation: float 5s infinite ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-60px) rotate(10deg); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Cringe pic fading */
+    .cringe-pic {
+      position: absolute;
+      width: 220px;
+      opacity: 0;
+      transition: opacity 3s ease-in-out, transform 3s ease-in-out;
+      filter: hue-rotate(90deg) saturate(3);
+      border: 10px dashed brown;
+      box-shadow: 0 0 20px #ff00ff;
+      transform: rotate(-10deg) scale(0.9);
+    }
+    .visible { opacity: 1; transform: rotate(10deg) scale(1.1); }
+
+    /* Warning banner */
+    .warning {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      padding: 10px;
+      font-size: 1.1em;
+      color: yellow;
+      background: rgba(255, 0, 0, 0.3);
+      border: 3px solid red;
+      text-shadow: 2px 2px 8px black;
+      animation: shake 0.7s infinite;
+      z-index: 9999;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(5px, -4px); }
+      50% { transform: translate(-5px, 4px); }
+      75% { transform: translate(5px, 4px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* Chaos controls */
+    .controls {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      left: 10px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: hotpink;
+      color: black;
+      border: 3px solid yellow;
+      padding: 8px 12px;
+      font-weight: bold;
+      box-shadow: 0 0 10px #fff;
+      animation: buzz 0.5s infinite;
+      cursor: pointer;
+    }
+    @keyframes buzz {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(1px, -1px); }
+      100% { transform: translate(0, 0); }
     }
   </style>
 </head>
 <body>
-  <h1>💩💩💩 WELCOME TO THE POOP APOCALYPSE 💩💩💩</h1>
-  
+  <h1>💩 OVERPOWERED POOPY Q CHAOS 💩</h1>
+  <marquee behavior="alternate">⚠️ WARNING: VERY CRINGE — APPROACH WITH CAUTION. QS MAY BE HIDING AROUND THE CORNER. ⚠️</marquee>
+
+  <!-- Signature image -->
   <a href="https://cooltext.com">
-    <img src="https://images.cooltext.com/5746351.png"
-         width="648"
-         height="94"
-         alt="oopy poopy poop!" />
+    <img src="https://images.cooltext.com/5746351.png" width="648" height="94" alt="oopy poopy poop!" />
   </a>
-  
-  <marquee behavior="alternate">💩💩💩 SUPER CRINGE SCROLL 💩💩💩</marquee>
-  
-  <!-- Flashing GIFs -->
-  <img src="<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>💩💩💩 Poopocalypse Cringe 💩💩💩</title>
-  <style>
-    body {
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      text-align: center;
-      background: black;
-      color: neonpink;
-      animation: flash 1s infinite;
-    }
-    @keyframes flash {
-      0% { background-color: black; color: hotpink; }
-      50% { background-color: yellow; color: lime; }
-      100% { background-color: black; color: cyan; }
-    }
-    img {
-      border: 15px groove brown;
-      animation: spin 2s infinite linear;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg) scale(1); }
-      to { transform: rotate(360deg) scale(1.5); }
-    }
-    h1 {
-      font-size: 3em;
-      text-shadow: 5px 5px 20px red;
-    }
-    marquee {
-      font-size: 2em;
-      color: white;
-      background: purple;
-    }
-  </style>
-</head>
-<body>
-  <h1>💩💩💩 WELCOME TO THE POOP APOCALYPSE 💩💩💩</h1>
-  
-  <a href="https://cooltext.com">
-    <img src="https://images.cooltext.com/5746351.png"
-         width="648"
-         height="94"
-         alt="oopy poopy poop!" />
-  </a>
-  
-  <marquee behavior="alternate">💩💩💩 SUPER CRINGE SCROLL 💩💩💩</marquee>
-  
-  <!-- Flashing GIFs -->
-  <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" width="200" />
-  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" width="200" />
-  
-  <!-- Autoplay sound -->
+
+  <!-- Cringe soundtrack -->
   <audio autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
   </audio>
-  
-  <p>⚠️ Warning: This page may cause instant regret. Proceed with maximum cringe tolerance. ⚠️</p>
+
+  <!-- Warning banner -->
+  <div class="warning">💩 Poopy Q Virus engaged! Cringe levels unstable. Expect random fades, pop-ups, and emoji swarms.</div>
+
+  <!-- Cringe pics -->
+  <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" class="cringe-pic" id="pic1" />
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" class="cringe-pic" id="pic2" />
+  <img src="https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif" class="cringe-pic" id="pic3" />
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn" id="spawnMore">Spawn more poop</button>
+    <button class="btn" id="alertNow">Trigger alert</button>
+    <button class="btn" id="bluePoop">Blue screen of poop</button>
+  </div>
+
+  <script>
+    // Fake Poopy Q alerts
+    let alertTimer = setInterval(() => {
+      alert("💩 POOPY Q VIRUS ALERT 💩 Cringe overload detected!");
+    }, 9000);
+
+    // Random poop emoji spawns
+    function spawnPoop() {
+      const poop = document.createElement("div");
+      poop.className = "poop";
+      poop.innerText = "💩";
+      poop.style.left = Math.random() * (window.innerWidth - 40) + "px";
+      poop.style.top = Math.random() * (window.innerHeight - 40) + "px";
+      document.body.appendChild(poop);
+      setTimeout(() => poop.remove(), 6000);
+    }
+    const poopTimer = setInterval(spawnPoop, 700);
+
+    // Cursor trail
+    document.addEventListener("mousemove", (e) => {
+      const trail = document.createElement("div");
+      trail.className = "poop";
+      trail.innerText = "💩";
+      trail.style.left = e.pageX + "px";
+      trail.style.top = e.pageY + "px";
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 1000);
+    });
+
+    // Cringe pics fade in/out randomly every 10s
+    const pics = ["pic1", "pic2", "pic3"];
+    setInterval(() => {
+      const id = pics[Math.floor(Math.random() * pics.length)];
+      const el = document.getElementById(id);
+      // random position
+      el.style.left = Math.random() * (window.innerWidth - 220) + "px";
+      el.style.top = Math.random() * (window.innerHeight - 220) + "px";
+      el.classList.add("visible");
+      setTimeout(() => el.classList.remove("visible"), 5000);
+    }, 10000);
+
+    // Buttons: more chaos
+    document.getElementById("spawnMore").onclick = () => {
+      for (let i = 0; i < 20; i++) spawnPoop();
+    };
+    document.getElementById("alertNow").onclick = () => {
+      alert("⚠️ Immediate cringe alert: Q detected around the corner!");
+    };
+    document.getElementById("bluePoop").onclick = () => {
+      // Fake blue screen of poop death
+      const overlay = document.createElement("div");
+      overlay.style.position = "fixed";
+      overlay.style.inset = "0";
+      overlay.style.background = "#0011aa";
+      overlay.style.color = "#fff";
+      overlay.style.fontFamily = "monospace";
+      overlay.style.padding = "40px";
+      overlay.style.zIndex = "10000";
+      overlay.innerHTML = `
+        <h2>💩 Blue Screen of Poop Death 💩</h2>
+        <p>Poopy Q Virus has caused a catastrophic cringe overflow.</p>
+        <p>Stop code: POOPY_Q_OVERFLOW</p>
+        <p>Press any key to attempt recovery...</p>
+      `;
+      document.body.appendChild(overlay);
+      const keyHandler = () => {
+        overlay.remove();
+        document.removeEventListener("keydown", keyHandler);
+      };
+      document.addEventListener("keydown", keyHandler);
+    };
+
+    // Safety toggle (reduce chaos if needed)
+    const calmMode = false; // set to true to disable alerts and reduce spawns
+    if (calmMode) {
+      clearInterval(alertTimer);
+      clearInterval(poopTimer);
+    }
+  </script>
 </body>
 </html>
-" width="200" />
-  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" width="200" />
-  
-  <!-- Autoplay sound -->
-  <audio autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  
-  <p>⚠️ Warning: This page may cause instant regret. Proceed with maximum cringe tolerance. ⚠️</p>
-</body>
-</html>
+
+
