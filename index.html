@@ -2,216 +2,163 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>💩 Overpowered Poopy Q Chaos 💩</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💩 Poopy Q Virus Apocalypse Game 💩</title>
   <style>
-    /* Global chaos */
     body {
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      text-align: center;
+      margin: 0;
       background: black;
       color: hotpink;
-      animation: flash 1s infinite;
+      font-family: "Comic Sans MS", cursive, sans-serif;
       overflow: hidden;
-      cursor: crosshair;
     }
-    @keyframes flash {
-      0% { background-color: black; color: hotpink; }
-      25% { background-color: lime; color: yellow; }
-      50% { background-color: cyan; color: red; }
-      75% { background-color: purple; color: white; }
-      100% { background-color: black; color: orange; }
-    }
-
-    h1 { font-size: 3em; text-shadow: 6px 6px 24px red; margin: 0.5em 0; }
-    marquee { font-size: 1.6em; color: white; background: purple; }
-
-    /* Floating poop emojis */
-    .poop {
-      position: absolute;
-      font-size: 2em;
-      animation: float 5s infinite ease-in-out;
-      pointer-events: none;
-    }
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-60px) rotate(10deg); }
-      100% { transform: translateY(0); }
-    }
-
-    /* Cringe pic fading */
-    .cringe-pic {
-      position: absolute;
-      width: 220px;
-      opacity: 0;
-      transition: opacity 3s ease-in-out, transform 3s ease-in-out;
-      filter: hue-rotate(90deg) saturate(3);
+    #gameCanvas {
+      background: linear-gradient(to bottom, #222, #444);
+      display: block;
+      margin: auto;
       border: 10px dashed brown;
-      box-shadow: 0 0 20px #ff00ff;
-      transform: rotate(-10deg) scale(0.9);
     }
-    .visible { opacity: 1; transform: rotate(10deg) scale(1.1); }
-
-    /* Warning banner */
-    .warning {
-      position: fixed;
+    #gameOver {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      color: red;
+      text-shadow: 3px 3px 10px yellow;
+      display: none;
+    }
+    #score {
+      position: absolute;
       top: 10px;
-      right: 10px;
       left: 10px;
-      padding: 10px;
-      font-size: 1.1em;
+      font-size: 1.5em;
       color: yellow;
-      background: rgba(255, 0, 0, 0.3);
-      border: 3px solid red;
-      text-shadow: 2px 2px 8px black;
-      animation: shake 0.7s infinite;
-      z-index: 9999;
-    }
-    @keyframes shake {
-      0% { transform: translate(0, 0); }
-      25% { transform: translate(5px, -4px); }
-      50% { transform: translate(-5px, 4px); }
-      75% { transform: translate(5px, 4px); }
-      100% { transform: translate(0, 0); }
-    }
-
-    /* Chaos controls */
-    .controls {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      left: 10px;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn {
-      background: hotpink;
-      color: black;
-      border: 3px solid yellow;
-      padding: 8px 12px;
-      font-weight: bold;
-      box-shadow: 0 0 10px #fff;
-      animation: buzz 0.5s infinite;
-      cursor: pointer;
-    }
-    @keyframes buzz {
-      0% { transform: translate(0, 0); }
-      50% { transform: translate(1px, -1px); }
-      100% { transform: translate(0, 0); }
     }
   </style>
 </head>
 <body>
-  <h1>💩 OVERPOWERED POOPY Q CHAOS 💩</h1>
-  <marquee behavior="alternate">⚠️ WARNING: VERY CRINGE — APPROACH WITH CAUTION. QS MAY BE HIDING AROUND THE CORNER. ⚠️</marquee>
-
-  <!-- Signature image -->
-  <a href="https://cooltext.com">
-    <img src="https://images.cooltext.com/5746351.png" width="648" height="94" alt="oopy poopy poop!" />
-  </a>
-
-  <!-- Cringe soundtrack -->
-  <audio autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- Warning banner -->
-  <div class="warning">💩 Poopy Q Virus engaged! Cringe levels unstable. Expect random fades, pop-ups, and emoji swarms.</div>
-
-  <!-- Cringe pics -->
-  <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" class="cringe-pic" id="pic1" />
-  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" class="cringe-pic" id="pic2" />
-  <img src="https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif" class="cringe-pic" id="pic3" />
-
-  <!-- Controls -->
-  <div class="controls">
-    <button class="btn" id="spawnMore">Spawn more poop</button>
-    <button class="btn" id="alertNow">Trigger alert</button>
-    <button class="btn" id="bluePoop">Blue screen of poop</button>
-  </div>
+  <h1 style="text-align:center;">💩💩💩 POOPY Q VIRUS APOCALYPSE 💩💩💩</h1>
+  <canvas id="gameCanvas" width="600" height="400"></canvas>
+  <div id="gameOver">💩 GAME OVER 💩<br>Poopy Q Virus got you!</div>
+  <div id="score">Score: 0</div>
 
   <script>
-    // Fake Poopy Q alerts
-    let alertTimer = setInterval(() => {
-      alert("💩 POOPY Q VIRUS ALERT 💩 Cringe overload detected!");
-    }, 9000);
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
 
-    // Random poop emoji spawns
-    function spawnPoop() {
-      const poop = document.createElement("div");
-      poop.className = "poop";
-      poop.innerText = "💩";
-      poop.style.left = Math.random() * (window.innerWidth - 40) + "px";
-      poop.style.top = Math.random() * (window.innerHeight - 40) + "px";
-      document.body.appendChild(poop);
-      setTimeout(() => poop.remove(), 6000);
+    let player = { x: 280, y: 350, size: 40, speed: 6 };
+    let poops = [];
+    let powerUps = [];
+    let gameOver = false;
+    let score = 0;
+    let invincible = false;
+
+    // Spawn poop every second
+    setInterval(() => {
+      if (!gameOver) {
+        poops.push({ x: Math.random() * (canvas.width - 20), y: -20, size: 20, speed: 3 });
+      }
+    }, 1000);
+
+    // Spawn power-ups every 7 seconds
+    setInterval(() => {
+      if (!gameOver) {
+        const type = Math.random() < 0.5 ? "golden" : "q";
+        powerUps.push({ x: Math.random() * (canvas.width - 20), y: -20, type, size: 20, speed: 2 });
+      }
+    }, 7000);
+
+    // Draw everything
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Player as cringe face
+      ctx.font = "30px Comic Sans MS";
+      ctx.fillStyle = invincible ? "gold" : "lime";
+      ctx.fillText("(>_<)", player.x, player.y);
+
+      // Poops
+      ctx.font = "25px Comic Sans MS";
+      poops.forEach(poop => {
+        ctx.fillText("💩", poop.x, poop.y);
+      });
+
+      // Power-ups
+      powerUps.forEach(p => {
+        ctx.font = "25px Comic Sans MS";
+        if (p.type === "golden") ctx.fillText("💩✨", p.x, p.y);
+        else ctx.fillText("Q", p.x, p.y);
+      });
     }
-    const poopTimer = setInterval(spawnPoop, 700);
 
-    // Cursor trail
-    document.addEventListener("mousemove", (e) => {
-      const trail = document.createElement("div");
-      trail.className = "poop";
-      trail.innerText = "💩";
-      trail.style.left = e.pageX + "px";
-      trail.style.top = e.pageY + "px";
-      document.body.appendChild(trail);
-      setTimeout(() => trail.remove(), 1000);
+    // Update positions
+    function update() {
+      poops.forEach(poop => {
+        poop.y += poop.speed;
+        if (!invincible && collide(poop, player)) endGame();
+      });
+      poops = poops.filter(poop => poop.y < canvas.height + 20);
+
+      powerUps.forEach(p => {
+        p.y += p.speed;
+        if (collide(p, player)) {
+          if (p.type === "golden") {
+            invincible = true;
+            setTimeout(() => invincible = false, 5000);
+          } else if (p.type === "q") {
+            score += 10;
+            alert("⚠️ Q is hiding around the corner! Bonus points!");
+          }
+          p.collected = true;
+        }
+      });
+      powerUps = powerUps.filter(p => !p.collected && p.y < canvas.height + 20);
+
+      document.getElementById("score").textContent = "Score: " + score;
+    }
+
+    function collide(a, b) {
+      return (
+        a.x < b.x + b.size &&
+        a.x + a.size > b.x &&
+        a.y < b.y + b.size &&
+        a.y + a.size > b.y
+      );
+    }
+
+    // Game loop
+    function loop() {
+      if (!gameOver) {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }
+    }
+    loop();
+
+    // Controls (WASD + arrows)
+    document.addEventListener("keydown", e => {
+      if (gameOver) return;
+      if (e.key === "ArrowLeft" || e.key === "a") player.x -= player.speed;
+      if (e.key === "ArrowRight" || e.key === "d") player.x += player.speed;
+      if (e.key === "ArrowUp" || e.key === "w") player.y -= player.speed;
+      if (e.key === "ArrowDown" || e.key === "s") player.y += player.speed;
+
+      // Boundaries
+      if (player.x < 0) player.x = 0;
+      if (player.x > canvas.width - player.size) player.x = canvas.width - player.size;
+      if (player.y < 0) player.y = 0;
+      if (player.y > canvas.height - player.size) player.y = canvas.height - player.size;
     });
 
-    // Cringe pics fade in/out randomly every 10s
-    const pics = ["pic1", "pic2", "pic3"];
-    setInterval(() => {
-      const id = pics[Math.floor(Math.random() * pics.length)];
-      const el = document.getElementById(id);
-      // random position
-      el.style.left = Math.random() * (window.innerWidth - 220) + "px";
-      el.style.top = Math.random() * (window.innerHeight - 220) + "px";
-      el.classList.add("visible");
-      setTimeout(() => el.classList.remove("visible"), 5000);
-    }, 10000);
-
-    // Buttons: more chaos
-    document.getElementById("spawnMore").onclick = () => {
-      for (let i = 0; i < 20; i++) spawnPoop();
-    };
-    document.getElementById("alertNow").onclick = () => {
-      alert("⚠️ Immediate cringe alert: Q detected around the corner!");
-    };
-    document.getElementById("bluePoop").onclick = () => {
-      // Fake blue screen of poop death
-      const overlay = document.createElement("div");
-      overlay.style.position = "fixed";
-      overlay.style.inset = "0";
-      overlay.style.background = "#0011aa";
-      overlay.style.color = "#fff";
-      overlay.style.fontFamily = "monospace";
-      overlay.style.padding = "40px";
-      overlay.style.zIndex = "10000";
-      overlay.innerHTML = `
-        <h2>💩 Blue Screen of Poop Death 💩</h2>
-        <p>Poopy Q Virus has caused a catastrophic cringe overflow.</p>
-        <p>Stop code: POOPY_Q_OVERFLOW</p>
-        <p>Press any key to attempt recovery...</p>
-      `;
-      document.body.appendChild(overlay);
-      const keyHandler = () => {
-        overlay.remove();
-        document.removeEventListener("keydown", keyHandler);
-      };
-      document.addEventListener("keydown", keyHandler);
-    };
-
-    // Safety toggle (reduce chaos if needed)
-    const calmMode = false; // set to true to disable alerts and reduce spawns
-    if (calmMode) {
-      clearInterval(alertTimer);
-      clearInterval(poopTimer);
+    function endGame() {
+      gameOver = true;
+      document.getElementById("gameOver").style.display = "block";
     }
   </script>
 </body>
 </html>
+
+
 
 
